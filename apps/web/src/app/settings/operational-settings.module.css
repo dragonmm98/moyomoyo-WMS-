@@ -259,8 +259,9 @@
 .formActions button:last-child,
 .addUser > button {
   color: white;
-  border-color: #172a24;
-  background: #172a24;
+  border-color: #e9ae25;
+  background: #e9ae25;
+  color: #10321f;
 }
 
 .userList {
@@ -424,7 +425,7 @@
 }
 
 .providerList article.planned {
-  background: #fafbfa;
+  background: var(--canvas);
 }
 
 .auditTable {

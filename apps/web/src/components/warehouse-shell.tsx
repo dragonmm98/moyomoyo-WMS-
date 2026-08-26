@@ -18,7 +18,10 @@ export function WarehouseShell({ children }: { children: React.ReactNode }) {
   return (
     <>
       <aside className="sidebar">
-        <Link className="brand" href="/"><span className="brand-mark">J</span><span><strong>Jably</strong><small>WMS</small></span></Link>
+        <Link className="brand" href="/" aria-label="Moyomoyo warehouse home">
+          <img className="brand-logo" src="/moyomoyo-logo.png" alt="Moyomoyo" width={92} height={44} />
+          <small>Warehouse</small>
+        </Link>
         <div className="warehouse-picker">
           <button className="warehouse-switcher" type="button" aria-expanded={open} aria-haspopup="listbox" onClick={() => setOpen((value) => !value)}>
             <span className="warehouse-avatar">{current ? avatar(current.name, current.code) : "—"}</span>

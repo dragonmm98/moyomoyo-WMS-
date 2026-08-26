@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="44" fill="#172a24"/>
-  <path d="M50 48h95v29H80v21h53v28H80v39H50z" fill="#f0c75e"/>
+  <rect width="192" height="192" rx="44" fill="#183f2a"/>
+  <text x="96" y="118" text-anchor="middle" fill="#e9ae25" font-family="Arial Rounded MT Bold, Trebuchet MS, sans-serif" font-size="92" font-weight="900">M</text>
 </svg>

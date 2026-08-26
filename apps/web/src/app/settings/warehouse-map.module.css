@@ -21,14 +21,14 @@
   height: 32px;
   border: 3px solid white;
   border-radius: 50% 50% 50% 0;
-  background: #28775e;
-  box-shadow: 0 3px 12px #172a2455;
+  background: #183f2a;
+  box-shadow: 0 3px 12px #183f2a55;
   transform: rotate(-45deg);
 }
 
 .focusedMarker {
-  background: #e1ae27;
-  box-shadow: 0 0 0 5px #f0c75e55, 0 3px 12px #172a2455;
+  background: #e9ae25;
+  box-shadow: 0 0 0 5px #e9ae2555, 0 3px 12px #183f2a55;
 }
 
 .marker i {

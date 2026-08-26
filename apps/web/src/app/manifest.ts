@@ -2,13 +2,16 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Jably Warehouse Management",
-    short_name: "Jably WMS",
-    description: "Warehouse operations from receiving to shipment",
+    name: "Moyomoyo Warehouse Management",
+    short_name: "Moyomoyo WMS",
+    description: "Moyomoyo warehouse operations from receiving to shipment",
     start_url: "/",
     display: "standalone",
-    background_color: "#f4f6f3",
-    theme_color: "#172a24",
-    icons: [{ src: "/wms-icon.svg", sizes: "any", type: "image/svg+xml" }],
+    background_color: "#f6f2e8",
+    theme_color: "#183f2a",
+    icons: [
+      { src: "/moyomoyo-logo.png", sizes: "any", type: "image/png" },
+      { src: "/wms-icon.svg", sizes: "any", type: "image/svg+xml" },
+    ],
   };
 }
