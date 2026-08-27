@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type Barcode = { value: string; primary: boolean };
 type PurchaseOrderLine = {
@@ -66,7 +67,7 @@ export function PurchaseOrderDetails({ id }: { id: string }) {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(`${API_URL}/purchase-orders/${id}`);
+      const response = await apiFetch(`${API_URL}/purchase-orders/${id}`);
       const body = (await response.json()) as PurchaseOrder & {
         message?: string | string[];
       };

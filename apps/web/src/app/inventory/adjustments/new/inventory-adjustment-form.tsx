@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type Balance = {
   id: string;
@@ -36,7 +37,7 @@ export function InventoryAdjustmentForm({
     let active = true;
     async function load() {
       try {
-        const response = await fetch(`${API_URL}/inventory-balances`);
+        const response = await apiFetch(`${API_URL}/inventory-balances`);
         if (!response.ok) return;
         const body = (await response.json()) as Balance[];
         if (!active) return;
@@ -69,7 +70,7 @@ export function InventoryAdjustmentForm({
     }
     setStatus("saving");
     try {
-      const response = await fetch(`${API_URL}/inventory-adjustments`, {
+      const response = await apiFetch(`${API_URL}/inventory-adjustments`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

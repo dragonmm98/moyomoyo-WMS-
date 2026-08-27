@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useWarehouse, type Warehouse } from "@/components/warehouse-context";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 import { WarehouseMap } from "./warehouse-map";
 import { OperationalSettings } from "./operational-settings";
 
@@ -47,7 +48,7 @@ export function WarehouseSettings() {
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/warehouses?includeInactive=true`);
+      const response = await apiFetch(`${API_URL}/warehouses?includeInactive=true`);
       if (!response.ok) throw new Error("Could not load warehouse settings.");
       setWarehouses((await response.json()) as Warehouse[]);
     } catch (loadError) {
@@ -114,7 +115,7 @@ export function WarehouseSettings() {
     setError("");
     setMessage("");
     try {
-      const response = await fetch(`${API_URL}/warehouses${editingId ? `/${editingId}` : ""}`, {
+      const response = await apiFetch(`${API_URL}/warehouses${editingId ? `/${editingId}` : ""}`, {
         method: editingId ? "PATCH" : "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

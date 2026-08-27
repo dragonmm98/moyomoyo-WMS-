@@ -1,8 +1,20 @@
-import { PrismaClient, LocationType, TrackingPolicy } from "@prisma/client";
+import { PrismaClient, LocationType, TrackingPolicy, UserRole } from "@prisma/client";
+import { hash } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
+  const adminEmail = (process.env.ADMIN_EMAIL ?? "admin@moyomoyo.com").trim().toLowerCase();
+  const adminPassword = process.env.ADMIN_PASSWORD ?? "MoyomoyoAdmin1";
+  const adminName = process.env.ADMIN_NAME ?? "Javohir";
+  const passwordHash = await hash(adminPassword, 12);
+  await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: { name: adminName, passwordHash, role: UserRole.ADMIN, active: true },
+    create: { email: adminEmail, name: adminName, passwordHash, role: UserRole.ADMIN },
+  });
+  console.log(`Admin user ready: ${adminEmail}`);
+
   const warehouse = await prisma.warehouse.upsert({
     where: { code: "SEL-01" },
     update: {

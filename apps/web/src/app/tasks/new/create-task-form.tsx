@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type Location = { id: string; code: string; type: string; status: string };
 type Warehouse = {
@@ -47,7 +48,7 @@ export function CreateTaskForm() {
     let active = true;
     async function loadWarehouses() {
       try {
-        const response = await fetch(`${API_URL}/warehouses`);
+        const response = await apiFetch(`${API_URL}/warehouses`);
         if (!response.ok) return;
         const body = (await response.json()) as Warehouse[];
         if (!active) return;
@@ -87,7 +88,7 @@ export function CreateTaskForm() {
     }
     setSubmitStatus("saving");
     try {
-      const response = await fetch(`${API_URL}/tasks`, {
+      const response = await apiFetch(`${API_URL}/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

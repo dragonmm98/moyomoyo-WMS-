@@ -7,6 +7,7 @@ import { InboundModule } from "./inbound/inbound.module";
 import { InventoryModule } from "./inventory/inventory.module";
 import { OutboundModule } from "./outbound/outbound.module";
 import { TasksModule } from "./tasks/tasks.module";
+import { AuthModule } from "./auth/auth.module";
 import { PrismaModule } from "./prisma/prisma.module";
 import { WarehouseModule } from "./warehouse/warehouse.module";
 
@@ -14,6 +15,7 @@ import { WarehouseModule } from "./warehouse/warehouse.module";
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     PrismaModule,
+    AuthModule,
     HealthModule,
     WarehouseModule,
     CatalogModule,

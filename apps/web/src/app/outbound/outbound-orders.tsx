@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { OperationsPage } from "@/components/operations-page";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type SalesOrder = {
   id: string;
@@ -37,7 +38,7 @@ export function OutboundOrders() {
     let active = true;
     async function load() {
       try {
-        const response = await fetch(`${API_URL}/sales-orders`);
+        const response = await apiFetch(`${API_URL}/sales-orders`);
         if (!response.ok) throw new Error("Could not load sales orders.");
         const body = (await response.json()) as SalesOrder[];
         if (active) setOrders(body);

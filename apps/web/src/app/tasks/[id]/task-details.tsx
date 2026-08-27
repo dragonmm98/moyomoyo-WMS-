@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type TaskPayload = {
   title?: string;
@@ -58,7 +59,7 @@ export function TaskDetails({ id }: { id: string }) {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(`${API_URL}/tasks/${id}`);
+      const response = await apiFetch(`${API_URL}/tasks/${id}`);
       const body = (await response.json()) as Task & { message?: string };
       if (!response.ok) throw new Error(body.message || "Could not load task.");
       setTask(body);

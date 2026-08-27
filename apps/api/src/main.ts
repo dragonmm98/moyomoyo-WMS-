@@ -1,18 +1,21 @@
 import { ValidationPipe, VersioningType } from "@nestjs/common";
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import cookieParser = require("cookie-parser");
 import helmet from "helmet";
 import { AppModule } from "./app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(helmet());
+  app.use(cookieParser());
   const configuredOrigins = (process.env.WEB_ORIGIN ?? "http://localhost:3000")
     .split(",")
     .map((origin) => origin.trim())
     .filter(Boolean);
   const development = process.env.NODE_ENV !== "production";
   app.enableCors({
+    credentials: true,
     origin(
       origin: string | undefined,
       callback: (error: Error | null, allow?: boolean) => void,
@@ -55,6 +58,7 @@ async function bootstrap() {
     .setTitle("WMS API")
     .setDescription("Warehouse management API")
     .setVersion("1.0")
+    .addBearerAuth()
     .build();
   SwaggerModule.setup("docs", app, SwaggerModule.createDocument(app, config));
 

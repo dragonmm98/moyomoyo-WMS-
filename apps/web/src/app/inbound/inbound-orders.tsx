@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { OperationsPage } from "@/components/operations-page";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type PurchaseOrder = {
   id: string;
@@ -34,7 +35,7 @@ export function InboundOrders() {
     let active = true;
     async function loadOrders() {
       try {
-        const response = await fetch(`${API_URL}/purchase-orders`);
+        const response = await apiFetch(`${API_URL}/purchase-orders`);
         if (!response.ok) throw new Error("Could not load purchase orders.");
         const body = (await response.json()) as PurchaseOrder[];
         if (active) setOrders(body);

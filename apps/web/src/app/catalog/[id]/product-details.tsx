@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type Product = {
   id: string;
@@ -123,7 +124,7 @@ export function ProductDetails({ id }: { id: string }) {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(`${API_URL}/skus/${id}`);
+      const response = await apiFetch(`${API_URL}/skus/${id}`);
       const body = (await response.json()) as Product & { message?: string };
       if (!response.ok) throw new Error(body.message || "Could not load product.");
       setProduct(body);

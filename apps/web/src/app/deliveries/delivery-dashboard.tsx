@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 import logoStyles from "./provider-logo.module.css";
 
 type Provider = {
@@ -103,9 +104,9 @@ export function DeliveryDashboard() {
     setError("");
     try {
       const [deliveryResponse, providerResponse, orderResponse] = await Promise.all([
-        fetch(`${API_URL}/deliveries`),
-        fetch(`${API_URL}/deliveries/providers`),
-        fetch(`${API_URL}/sales-orders`),
+        apiFetch(`${API_URL}/deliveries`),
+        apiFetch(`${API_URL}/deliveries/providers`),
+        apiFetch(`${API_URL}/sales-orders`),
       ]);
       if (!deliveryResponse.ok || !providerResponse.ok || !orderResponse.ok) throw new Error("Could not load the delivery sandbox.");
       const [deliveryBody, providerBody, orderBody] = await Promise.all([
@@ -166,7 +167,7 @@ export function DeliveryDashboard() {
     setError("");
     setMessage("");
     try {
-      const response = await fetch(`${API_URL}/deliveries`, {
+      const response = await apiFetch(`${API_URL}/deliveries`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ orderId, service }),
@@ -190,7 +191,7 @@ export function DeliveryDashboard() {
     setError("");
     setMessage("");
     try {
-      const response = await fetch(`${API_URL}/deliveries/${delivery.id}/actions`, {
+      const response = await apiFetch(`${API_URL}/deliveries/${delivery.id}/actions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action }),

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type Address = {
   line1: string;
@@ -69,7 +70,7 @@ export function SalesOrderDetails({ id }: { id: string }) {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(`${API_URL}/sales-orders/${id}`);
+      const response = await apiFetch(`${API_URL}/sales-orders/${id}`);
       const body = (await response.json()) as SalesOrder & { message?: string };
       if (!response.ok) throw new Error(body.message || "Could not load sales order.");
       setOrder(body);

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useWarehouse } from "@/components/warehouse-context";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type PurchaseOrder = {
   id: string;
@@ -74,11 +75,11 @@ export function WarehouseOverview() {
     setError("");
     try {
       const responses = await Promise.all([
-        fetch(`${API_URL}/purchase-orders`),
-        fetch(`${API_URL}/inventory-balances`),
-        fetch(`${API_URL}/tasks`),
-        fetch(`${API_URL}/sales-orders`),
-        fetch(`${API_URL}/deliveries`),
+        apiFetch(`${API_URL}/purchase-orders`),
+        apiFetch(`${API_URL}/inventory-balances`),
+        apiFetch(`${API_URL}/tasks`),
+        apiFetch(`${API_URL}/sales-orders`),
+        apiFetch(`${API_URL}/deliveries`),
       ]);
       if (responses.some((response) => !response.ok)) throw new Error("One or more operational feeds could not be loaded.");
       const [purchaseOrders, balances, tasks, orders, deliveries] = await Promise.all(responses.map((response) => response.json())) as [PurchaseOrder[], Balance[], Task[], SalesOrder[], Delivery[]];

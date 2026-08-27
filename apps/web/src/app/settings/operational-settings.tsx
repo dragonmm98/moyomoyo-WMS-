@@ -2,6 +2,7 @@
 
 import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 import styles from "./operational-settings.module.css";
 
 type UserRole = "Administrator" | "Supervisor" | "Operator" | "Viewer";
@@ -85,7 +86,7 @@ export function OperationalSettings({ warehouseId, warehouseName }: { warehouseI
     const request = window.setTimeout(() => {
       setLoading(true);
       setError("");
-      void fetch(`${API_URL}/warehouses/${warehouseId}/operational-settings`)
+      void apiFetch(`${API_URL}/warehouses/${warehouseId}/operational-settings`)
         .then(async (response) => {
           if (!response.ok) throw new Error("Could not load operational settings.");
           const body = await response.json() as Partial<OperationalSettingsValue>;
@@ -104,7 +105,7 @@ export function OperationalSettings({ warehouseId, warehouseName }: { warehouseI
   const loadAudit = useCallback(async () => {
     setAuditLoading(true);
     try {
-      const response = await fetch(`${API_URL}/warehouses/audit-log?limit=50`);
+      const response = await apiFetch(`${API_URL}/warehouses/audit-log?limit=50`);
       if (!response.ok) throw new Error("Could not load the audit log.");
       setAudit(await response.json() as AuditEntry[]);
     } catch (loadError) {
@@ -128,7 +129,7 @@ export function OperationalSettings({ warehouseId, warehouseName }: { warehouseI
     setMessage("");
     setError("");
     try {
-      const response = await fetch(`${API_URL}/warehouses/${warehouseId}/operational-settings`, {
+      const response = await apiFetch(`${API_URL}/warehouses/${warehouseId}/operational-settings`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ settings }),

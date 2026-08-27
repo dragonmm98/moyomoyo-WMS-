@@ -6,7 +6,7 @@
   height: 430px;
   border-top: 1px solid #dfe5e1;
   border-bottom: 1px solid #dfe5e1;
-  background: #e9efec;
+  background: #f3efe6;
 }
 
 .markerShell {
@@ -48,7 +48,7 @@
 }
 
 .popup strong {
-  color: #28775e;
+  color: #183f2a;
   font-size: 11px;
 }
 
@@ -91,7 +91,7 @@
 }
 
 .legend button > span {
-  color: #28775e;
+  color: #183f2a;
   font-size: 15px;
 }
 

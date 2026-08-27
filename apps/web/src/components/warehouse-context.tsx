@@ -1,7 +1,8 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
+import { useAuth } from "@/components/auth-context";
 
 export type Warehouse = {
   id: string;
@@ -27,13 +28,14 @@ const STORAGE_KEY = "jably-selected-warehouse";
 const WarehouseContext = createContext<WarehouseContextValue | null>(null);
 
 export function WarehouseProvider({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth();
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
   const [selectedWarehouse, setSelectedWarehouse] = useState<Warehouse | null>(null);
   const [loading, setLoading] = useState(true);
 
   const refreshWarehouses = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/warehouses`);
+      const response = await apiFetch("/warehouses");
       if (!response.ok) throw new Error("Could not load warehouses");
       const body = (await response.json()) as Warehouse[];
       setWarehouses(body);
@@ -54,9 +56,16 @@ export function WarehouseProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
+    if (!user) {
+      setWarehouses([]);
+      setSelectedWarehouse(null);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
     const request = window.setTimeout(() => void refreshWarehouses(), 0);
     return () => window.clearTimeout(request);
-  }, [refreshWarehouses]);
+  }, [refreshWarehouses, user]);
 
   const selectWarehouse = useCallback((warehouse: Warehouse) => {
     window.localStorage.setItem(STORAGE_KEY, warehouse.id);

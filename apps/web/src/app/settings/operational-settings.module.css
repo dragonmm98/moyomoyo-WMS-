@@ -15,33 +15,29 @@
   gap: 13px;
   min-height: 128px;
   padding: 20px;
-  border: 1px solid #dfe5e1;
-  border-radius: 12px;
-  color: #1d2924;
-  background: white;
+  border: 1px solid #e2ddd0;
+  border-radius: 8px;
+  color: #1c241e;
+  background: #fffcf7;
   text-align: left;
   cursor: pointer;
-  box-shadow: 0 3px 12px #21382e0a;
-  transition: 150ms ease;
 }
 
 .cards > button:hover,
 .cards > button.activeCard {
-  border-color: #79ad99;
-  background: #f2f8f5;
-  box-shadow: inset 0 0 0 1px #cde2d9;
-  transform: translateY(-1px);
+  border-color: #183f2a;
+  background: #f3efe6;
 }
 
 .cards > button > span,
 .panelHeading > div > span {
   display: grid;
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   place-items: center;
-  border-radius: 10px;
-  color: #28775e;
-  background: #e7f3ee;
+  border-radius: 6px;
+  color: #183f2a;
+  background: #e6eadf;
   font-size: 16px;
 }
 
@@ -59,7 +55,7 @@
 }
 
 .cards small {
-  color: #28775e;
+  color: #183f2a;
   font-size: 9px;
   font-weight: 750;
 }
@@ -72,10 +68,9 @@
 .panel {
   overflow: hidden;
   margin-top: 14px;
-  border: 1px solid #dfe5e1;
-  border-radius: 12px;
-  background: white;
-  box-shadow: 0 3px 12px #21382e0a;
+  border: 1px solid #e2ddd0;
+  border-radius: 8px;
+  background: #fffcf7;
 }
 
 .panelHeading {
@@ -229,7 +224,7 @@
 .formGrid fieldset input,
 .userList input,
 .providerList input {
-  accent-color: #28775e;
+  accent-color: #183f2a;
 }
 
 .toggle span strong,
@@ -285,7 +280,7 @@
   height: 34px;
   place-items: center;
   border-radius: 50%;
-  color: #28775e;
+  color: #183f2a;
   background: #e7f3ee;
   font-size: 11px;
   font-weight: 800;
@@ -393,7 +388,7 @@
   height: 34px;
   place-items: center;
   border-radius: 8px;
-  color: #28775e;
+  color: #183f2a;
   background: #e7f3ee;
   font-size: 9px;
   font-weight: 800;

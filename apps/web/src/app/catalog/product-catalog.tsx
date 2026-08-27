@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { OperationsPage } from "@/components/operations-page";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type Product = {
   id: string;
@@ -30,7 +31,7 @@ export function ProductCatalog() {
     let active = true;
     async function load() {
       try {
-        const response = await fetch(`${API_URL}/skus`, { cache: "no-store" });
+        const response = await apiFetch(`${API_URL}/skus`, { cache: "no-store" });
         if (!response.ok) throw new Error("Could not load product catalog.");
         const body = (await response.json()) as Product[];
         if (active) setProducts(body);

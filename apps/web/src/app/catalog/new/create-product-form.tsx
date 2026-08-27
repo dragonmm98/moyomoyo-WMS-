@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 import { createEan13 } from "@/lib/barcode";
 
 type BarcodeLine = {
@@ -98,7 +99,7 @@ export function CreateProductForm() {
     }
     setSubmitStatus("saving");
     try {
-      const response = await fetch(`${API_URL}/skus`, {
+      const response = await apiFetch(`${API_URL}/skus`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -3,17 +3,38 @@
 import Link from "next/link";
 import { useState } from "react";
 import { AppNavigation } from "./app-navigation";
+import { useAuth } from "./auth-context";
+import { LoginScreen } from "./login-screen";
 import { useWarehouse } from "./warehouse-context";
 
-function avatar(name: string, code: string) {
+function avatar(name: string, code = "") {
   const sequence = code.match(/\d+$/)?.[0];
-  return `${name.charAt(0).toUpperCase()}${sequence ? Number(sequence) : ""}`.slice(0, 3);
+  const initials = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase())
+    .join("")
+    .slice(0, 2);
+  return `${initials}${sequence ? Number(sequence) : ""}`.slice(0, 3);
 }
 
 export function WarehouseShell({ children }: { children: React.ReactNode }) {
+  const { user, loading: authLoading, logout } = useAuth();
   const { warehouses, selectedWarehouse, loading, selectWarehouse } = useWarehouse();
   const [open, setOpen] = useState(false);
   const current = selectedWarehouse ?? warehouses[0] ?? null;
+
+  if (authLoading) {
+    return (
+      <main className="login-shell">
+        <p className="login-boot">Checking session…</p>
+      </main>
+    );
+  }
+
+  if (!user) {
+    return <LoginScreen />;
+  }
 
   return (
     <>
@@ -38,7 +59,16 @@ export function WarehouseShell({ children }: { children: React.ReactNode }) {
         <div className="sidebar-bottom">
           <Link href="/scan"><span>▣</span>Scanner mode</Link>
           <Link href="/settings"><span>⚙</span>Settings</Link>
-          <div className="user-card"><span>JK</span><div><strong>Javohir</strong><small>Administrator</small></div><b>•••</b></div>
+          <div className="user-card">
+            <span>{avatar(user.name)}</span>
+            <div>
+              <strong>{user.name}</strong>
+              <small>{user.role === "ADMIN" ? "Administrator" : "Operator"}</small>
+            </div>
+            <button className="logout-button" type="button" onClick={() => void logout()}>
+              Log out
+            </button>
+          </div>
         </div>
       </aside>
       <main className="app-main">{children}</main>

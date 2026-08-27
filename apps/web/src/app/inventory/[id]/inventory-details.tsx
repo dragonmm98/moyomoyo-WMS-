@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type Transaction = {
   id: string;
@@ -62,7 +63,7 @@ export function InventoryDetails({ id }: { id: string }) {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch(`${API_URL}/inventory-balances/${id}`);
+      const response = await apiFetch(`${API_URL}/inventory-balances/${id}`);
       const body = (await response.json()) as Balance & { message?: string };
       if (!response.ok)
         throw new Error(body.message || "Could not load inventory balance.");

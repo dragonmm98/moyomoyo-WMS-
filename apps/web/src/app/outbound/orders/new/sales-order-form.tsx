@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type Sku = {
   id: string;
@@ -45,7 +46,7 @@ export function SalesOrderForm() {
     }, 0);
     async function loadSkus() {
       try {
-        const response = await fetch(`${API_URL}/skus`);
+        const response = await apiFetch(`${API_URL}/skus`);
         if (!response.ok) return;
         const body = (await response.json()) as Sku[];
         if (active) setSkus(body);
@@ -96,7 +97,7 @@ export function SalesOrderForm() {
     }
     setSubmitStatus("saving");
     try {
-      const response = await fetch(`${API_URL}/sales-orders`, {
+      const response = await apiFetch(`${API_URL}/sales-orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

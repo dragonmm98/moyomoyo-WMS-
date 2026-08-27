@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { ServiceWorkerRegistration } from "@/components/service-worker-registration";
+import { AuthProvider } from "@/components/auth-context";
 import { WarehouseProvider } from "@/components/warehouse-context";
 import { WarehouseShell } from "@/components/warehouse-shell";
 import "leaflet/dist/leaflet.css";
@@ -26,7 +27,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ServiceWorkerRegistration />
-        <WarehouseProvider><WarehouseShell>{children}</WarehouseShell></WarehouseProvider>
+        <AuthProvider>
+          <WarehouseProvider>
+            <WarehouseShell>{children}</WarehouseShell>
+          </WarehouseProvider>
+        </AuthProvider>
       </body>
     </html>
   );

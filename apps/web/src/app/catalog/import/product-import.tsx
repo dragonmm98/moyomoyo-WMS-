@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChangeEvent, useMemo, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 import { createEan13 } from "@/lib/barcode";
 import styles from "./product-import.module.css";
 
@@ -291,7 +292,7 @@ export function ProductImport() {
     setMessage("");
     setResult(null);
     try {
-      const response = await fetch(`${API_URL}/skus/import`, {
+      const response = await apiFetch(`${API_URL}/skus/import`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

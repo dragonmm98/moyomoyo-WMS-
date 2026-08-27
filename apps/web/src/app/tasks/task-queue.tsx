@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { OperationsPage } from "@/components/operations-page";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type TaskPayload = {
   title?: string;
@@ -39,7 +40,7 @@ export function TaskQueue() {
     let active = true;
     async function load() {
       try {
-        const response = await fetch(`${API_URL}/tasks`);
+        const response = await apiFetch(`${API_URL}/tasks`);
         if (!response.ok) throw new Error("Could not load warehouse tasks.");
         const body = (await response.json()) as Task[];
         if (active) setTasks(body);

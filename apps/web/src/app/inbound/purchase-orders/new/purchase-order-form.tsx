@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { API_URL } from "@/lib/api-url";
+import { apiFetch } from "@/lib/api";
 
 type Warehouse = { id: string; code: string; name: string };
 type Sku = {
@@ -63,8 +64,8 @@ export function PurchaseOrderForm({
     async function loadReferenceData() {
       try {
         const [warehouseResponse, skuResponse] = await Promise.all([
-          fetch(`${API_URL}/warehouses`),
-          fetch(`${API_URL}/skus`),
+          apiFetch(`${API_URL}/warehouses`),
+          apiFetch(`${API_URL}/skus`),
         ]);
         if (!warehouseResponse.ok || !skuResponse.ok) return;
         const warehouseData = (await warehouseResponse.json()) as Warehouse[];
@@ -141,7 +142,7 @@ export function PurchaseOrderForm({
 
     setSubmitStatus("saving");
     try {
-      const response = await fetch(`${API_URL}/purchase-orders`, {
+      const response = await apiFetch(`${API_URL}/purchase-orders`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
