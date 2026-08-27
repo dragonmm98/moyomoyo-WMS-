@@ -1,12 +1,15 @@
+name: moyomoyo-wms
+
 services:
   postgres:
     image: postgres:17-alpine
+    container_name: moyomoyo-wms-postgres-1
     environment:
       POSTGRES_USER: wms
       POSTGRES_PASSWORD: wms
       POSTGRES_DB: wms
     ports:
-      - "5432:5432"
+      - "4444:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -41,5 +44,6 @@ services:
 
 volumes:
   postgres_data:
+    name: moyomoyo-wms_postgres_data
   redis_data:
   minio_data:
